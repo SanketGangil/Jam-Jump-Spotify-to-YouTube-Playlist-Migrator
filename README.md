@@ -38,7 +38,7 @@ spotify-youtube-migrator/
 ├── requirements.txt      # Python Dependencies
 ├── run.py                # Application Entry Point
 └── .env                  # API Keys (Not included in repo)
-
+```
 ## Setup & Installation
 1. **Prerequisites**:
     * Python 3.8+ installed.
@@ -53,6 +53,7 @@ spotify-youtube-migrator/
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
+```
 
 4. **Configure Environment Variables**
 * Create a `.env` file in the root directory and add your credentials:
@@ -74,11 +75,11 @@ GOOGLE_REDIRECT_URI=[http://127.0.0.1:5000/youtube/callback](http://127.0.0.1:50
 
 # OAuth Security (For Local Development Only)
 OAUTHLIB_INSECURE_TRANSPORT=1
-
+```
 5. **Run the Application**
 ```bash
 python run.py
-
+```
 6. Access the application at `http://127.0.0.1:5000`.
 
 ## Future Improvements
