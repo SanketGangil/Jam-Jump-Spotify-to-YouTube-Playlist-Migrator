@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Migrator Dashboard</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;}
+        .card { background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; display: flex; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .card img { width: 60px; height: 60px; border-radius: 4px; margin-right: 15px; object-fit: cover; }
+        .info { flex-grow: 1; }
+        .btn { background: #ff0000; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; border: none; cursor: pointer; }
+        .btn:hover { background: #cc0000; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Select a Playlist to Migrate</h1>
+            <a href="/" style="color: #666;">Back Home</a>
+        </div>
+
+        {% for playlist in playlists %}
+        <div class="card">
+            {% if playlist.images %}
+                <img src="{{ playlist.images[0].url }}" alt="Cover">
+            {% else %}
+                <div style="width:60px; height:60px; background:#ccc; margin-right:15px; border-radius:4px;"></div>
+            {% endif %}
+            
+            <div class="info">
+                <h3>{{ playlist.name }}</h3>
+                <p style="color: #666;">{{ playlist.tracks.total }} tracks</p>
+            </div>
+            
+            <form action="{{ url_for('youtube.migrate_playlist') }}" method="post">
+                <input type="hidden" name="spotify_playlist_id" value="{{ playlist.id }}">
+                <input type="hidden" name="playlist_name" value="{{ playlist.name }}">
+                <button type="submit" class="btn">Migrate to YouTube</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
