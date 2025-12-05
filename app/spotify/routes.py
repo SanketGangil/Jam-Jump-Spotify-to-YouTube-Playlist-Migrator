@@ -74,6 +74,13 @@ def get_playlists():
     # API Endpoint to get current user's playlists
     response = requests.get('https://api.spotify.com/v1/me/playlists', headers=headers)
     
+    if response.status_code == 401:
+        # found a bug error 401
+        # 401 means "Unauthorized" (Token Expired)
+        # Clear the old token and force a re-login
+        session.pop('spotify_token', None)
+        return redirect(url_for('spotify.login'))
+
     if response.status_code != 200:
         return f"Error fetching playlists: {response.text}"
 
